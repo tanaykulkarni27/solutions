@@ -32,9 +32,11 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #else
 #define debug(x...)
 #endif
-
-int search(vector<int>& pre,int target){
-		int r = 305;
+vector<int>pre(1);
+int sz = 1;
+const int mx = 1e18;
+int search(int target){
+		int r = sz-1;
 		int l = 0;
 		int ans = -1;
 		while(l<=r){
@@ -50,40 +52,33 @@ int search(vector<int>& pre,int target){
 		return ans;
 }
 void testcase(){
-	int n = 2021;
-	vector<int> pre(306);
-		int pnt = 0;
-		for(int i = 2;i<=n;i++){
-			bool ok = 1;
-			for(int j = 2;j<i;j++){
-				if(i%j == 0){
-					ok = 0;
-					break;
-				}
-			}
-			if(ok){
-				pre[pnt] = i;
-				pnt++;
-			}
-				
-		}
-	// end of precalculations
-	int ans = 0;
-	int k = 0;
-	cin>>k;
-	int pp = search(pre,k);
-	if(pp == 0)
-		ans = pre[pp]*pre[pp+1];
-	else{
-		if(pre[pp]*pre[pp+1]>k)
-			ans = pre[pp]*pre[pp-1];
-		else
-			ans = pre[pp]*pre[pp+1];
+	long long n;
+	long long ans = 0;
+	cin>>n;
+	for(int i = 0;i+1<sz;i++){
+		if((pre[i]*pre[i+1])>n)
+			break;
+		ans = pre[i]*pre[i+1];
 	}
 	cout<<ans;
 	puts("");
 }
 int main(){
+pre[0] = 2;
+for(int i = 3;i<=32000;i++){
+	bool ok = 1;
+	for(int j = 2;j<i;j++){
+		if(i%j == 0){
+			ok = 0;
+			break;
+		}
+	}
+	if(ok){
+		pre.push_back(i);
+		sz++;
+	}
+				
+}
 int t;
 cin>>t;
 
