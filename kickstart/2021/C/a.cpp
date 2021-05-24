@@ -1,7 +1,7 @@
 /*
 	Author :- Tanay Kulkarni
-	Date   :- 23-5-2021
-	Time   :- 16:19:49.508093
+	Date   :- 24-5-2021
+	Time   :- 15:02:43.381862
 	Name   :- solve.cpp
 */
 #include<bits/stdc++.h>
@@ -32,38 +32,39 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #else
 #define debug(x...)
 #endif
-const int mod = 1e9+7;
-map<char,int>cnts;
+const int m = 1e9+7;
+long long binpow(long long a,long long b) {
+    a %= m;
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a % m;
+        a = a * a % m;
+        b >>= 1;
+    }
+    return res;
+}
 void testcase(){
-	int n,k;
+	long long n,k;
 	string s;
 	cin>>n>>k;
-	cin>>s;	
-	if(n == 1){
-		cout<<min(k,cnts[s[0]]);puts("");
-		return;
-	}
+	cin>>s;
+	string plm = s;
+	for(int i = 0;i<=n-1-i;i++)
+		plm[n-1-i] = plm[i];
+	long long cnt = 0;
+	if(plm < s)
+		cnt++;
 	int mid = (n+1)/2;
-	long long res =0;
-	string str = s;
-	for(int i = 0;i<=n/2;i++){
-		int remaining = mid-1-i;
-		res +=  cnts[s[i]] * pow(k,remaining);
-		if(n-1-i > i)
-			str[n-1-i] = s[i];
+	for(int i = 0;i<mid;i++){
+			long long smls = s[i]-'a';
+			long long blanks = mid-1-i;
+			cnt = ((cnt%m)+(smls*binpow(k,blanks))%m)%m;
 	}
-	if(str < s)
-	res++;
-	debug(str);
-	cout<<res;
+	cout<<cnt;
 	puts("");
 }
-
 int main(){
-for(int i = 0;i<26;i++){
-	cnts[i+'a'] = i;
-}
-//debug(cnts);
 int t;
 cin>>t;
 for(int i = 1;i<=t;i++){
