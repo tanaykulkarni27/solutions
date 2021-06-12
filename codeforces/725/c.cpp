@@ -1,7 +1,7 @@
 /*
 	* Author :- Tanay Kulkarni
 	* Date   :- 11-6-2021
-	* Time   :- 10:23:34.588087
+	* Time   :- 21:16:13.763882
 	* Name   :- solve.cpp
 */
 #include<bits/stdc++.h>
@@ -19,7 +19,7 @@ void __print(char x) {cerr << '\'' << x << '\'';}
 void __print(const char *x) {cerr << '\"' << x << '\"';}
 void __print(const string &x) {cerr << '\"' << x << '\"';}
 void __print(bool x) {cerr << (x ? "true" : "false");}
- 
+
 template<typename T, typename V>
 void __print(const pair<T, V> &x) {cerr << '{'; __print(x.first); cerr << ','; __print(x.second); cerr << '}';}
 template<typename T>
@@ -32,24 +32,21 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #else
 #define debug(x...)
 #endif
+int get_changed(int n){
+	string s = to_string(n);
+	int x = 1;
+	int changed = 0;
+	for(char i : s){
+		int tmp = i-'0';
+		changed += tmp*(x-1);
+		x*=10;
+	}
+	return changed;
+}
 void testcase(){
-	int n,l,r;
-	cin>>n>>l>>r;
-	vector<long long>arr(n);
-	for(int i = 0;i<n;i++)
-		cin>>arr[i];
-	long long ans = 0;
-	auto iter=  arr.begin();
-	sort(arr.begin(), arr.end());
-	int dec = 0;
-	for(int i = 0;i<n;i++){
-		ans += upper_bound(arr.begin(), arr.end(),r-arr[i-dec])-arr.begin();
-		ans -= lower_bound(arr.begin(), arr.end(),l-arr[i-dec])-arr.begin();
-		if(arr[i]*2 <= r && arr[i]*2 >=l)
-			ans--;
- 
-	}	
-	cout<<ans/2;
+	int l,r;
+	cin>>l>>r;
+	cout<<(get_changed(r)-get_changed(l));
 	puts("");
 }
 int main(){
