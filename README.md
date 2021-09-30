@@ -1,1 +1,1 @@
-KEY :- https://github.com/tanaykulkarni27/solutions.git
+<h1>MY CP SOLUTIONS (CODEFORCES , GCJ , KICKSTART)</h1>
